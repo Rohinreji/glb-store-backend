@@ -12,8 +12,9 @@ const routes = require("./routes");
 app.use(express.static(`${__dirname}/upload`));
 app.use("/", routes);
 
-const PORT = process.env.PORT||3010;
-app.listen(`${PORT}, 0.0.0.0`, () => {
+// const PORT = process.env.PORT || 3010;
+const PORT = 3010;
+app.listen(3010, "0.0.0.0", () => {
   console.log("server is running successfull");
-  console.log(`Server running at http://0.0.0.0:${PORT}`);
+  console.log(`Server running at http://0.0.0.0:${3010}`);
 });
