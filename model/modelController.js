@@ -50,4 +50,38 @@ const viewAllModels = async (req, res) => {
   }
 };
 
-module.exports = { addModels, upload, viewAllModels };
+// const viewModelById = async (req, res) => {
+//   try {
+//     const models = await modelSchema.findById({ _id: req.params.id });
+//     res.send(Buffer).json({
+//       msg: "data",
+//       data:models
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+const viewModelById = async (req, res) => {
+  try {
+    const model = await modelSchema.findById(req.params.id);
+
+    if (!model || !model.modelFile || !model.modelFile.data) {
+      return res.status(404).json({ msg: "Model or file not found" });
+    }
+
+    // Convert base64 string to binary buffer
+    const buffer = Buffer.from(model.modelFile.data, "base64");
+
+    // Set content type for GLB
+    res.set("Content-Type", "model/gltf-binary");
+
+    // Send raw binary
+    res.send(buffer);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
+
+module.exports = { addModels, upload, viewAllModels,viewModelById };

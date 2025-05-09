@@ -21,8 +21,8 @@ const modelSchema = new mongoose.Schema({
     required: true,
   },
   modelFile: {
-    type: Object,
-    required: true,
+    data: Buffer,
+    contentType: String,
   },
 });
 module.exports = new mongoose.model("3dModel", modelSchema);
