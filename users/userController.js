@@ -50,4 +50,19 @@ const userLogin = async (req, res) => {
     });
   }
 };
-module.exports = { addUser, userLogin };
+
+const userById = async (req, res) => {
+  try {
+    const user = await userSchema.findById({ _id: req.params.id });
+    return res.status(200).json({
+      msg: "account retrieved",
+      data: user,
+    });
+  } catch (error) {
+    res.status(405).json({
+      err: error,
+      msg: "Error occurs",
+    });
+  }
+};
+module.exports = { addUser, userLogin,userById };
